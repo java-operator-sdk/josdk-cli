@@ -21,10 +21,34 @@ public class InitCommand implements Runnable {
     @CommandLine.Option(names = {"-o", "--output"}, description = "The output directory, default: the current working directory.")
     private String outDirectory = System.getProperty("user.dir");
 
+    @CommandLine.Option(names = {"-g", "--groupid"})
+    private String groupId = "io.javaoperatorsdk.sample";
+
+    @CommandLine.Option(names = {"-a", "--artifactid"})
+    private String artifactId = "sample-operator";
+
+    @CommandLine.Option(names = {"-n", "--name"})
+    private String projectName = "A sample project";
+
+    @CommandLine.Option(names = {"-d", "--description"})
+    private String description = "A sample project";
+
+    @CommandLine.Option(names = {"-v", "--sdk-version"})
+    private String sdkVersion = "1.5.0";
+
 
     public void run() {
         final var renderer = new TemplateRenderer(outDirectory);
-        renderer.render("templates" + File.separator + buildTool + File.separator + framework, Map.of("name", "jops"));
-        System.out.println("The project initialized successfully!");
+        // generate build tools files
+        renderer.render("templates" + File.separator + framework + File.separator + buildTool,
+                Map.of(
+                        "groupid", groupId,
+                        "artifactid", artifactId,
+                        "name", projectName,
+                        "description", description,
+                        "sdkversion", sdkVersion
+                )
+        );
+        System.out.println("Build tool files generated successfully");
     }
 }
