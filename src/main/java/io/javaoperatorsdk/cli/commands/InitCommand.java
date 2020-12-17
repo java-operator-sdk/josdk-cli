@@ -38,17 +38,18 @@ public class InitCommand implements Runnable {
 
 
     public void run() {
-        final var renderer = new TemplateRenderer(outDirectory);
+        final var renderer = new TemplateRenderer();
         // generate build tools files
-        renderer.render("templates" + File.separator + framework + File.separator + buildTool,
-                Map.of(
-                        "groupid", groupId,
-                        "artifactid", artifactId,
-                        "name", projectName,
-                        "description", description,
-                        "sdkversion", sdkVersion
-                )
+        Map<String, String> context = Map.of(
+                "groupid", groupId,
+                "artifactid", artifactId,
+                "name", projectName,
+                "description", description,
+                "sdkversion", sdkVersion
         );
+        renderer.render("templates" + File.separator + framework + File.separator + buildTool + File.separator + "build", context, outDirectory);
         System.out.println("Build tool files generated successfully");
+        renderer.render("templates" + File.separator + framework + File.separator + buildTool + File.separator + "codes", context,
+                outDirectory + File.separator + ("src.main.java." + groupId).replaceAll("\\.", File.separator));
     }
 }
