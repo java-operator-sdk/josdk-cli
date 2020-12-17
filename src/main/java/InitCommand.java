@@ -1,5 +1,11 @@
+import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.Template;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
+
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.Map;
 
 
 @Command(name = "init", mixinStandardHelpOptions = true,
@@ -14,7 +20,17 @@ public class InitCommand implements Runnable {
 
 
     public void run() {
-        System.out.println("hello world");
+        Template template = Mustache.compiler().withLoader(
+                new Mustache.TemplateLoader() {
+                    @Override
+                    public Reader getTemplate(String s) throws Exception {
+                        return new InputStreamReader(
+                                Thread.currentThread().getContextClassLoader().getResourceAsStream(s)
+                        );
+                    }
+                }
+        ).loadTemplate("templates/maven/none/pom.xml");
+        System.out.println(template.execute(Map.of("name", "jops")));
         System.out.println(framework);
         System.out.println(buildTool);
     }
