@@ -18,7 +18,7 @@ public class InitCommand implements Runnable {
     @CommandLine.Option(names = {"-f", "--framework"}, description = "The framework to be used in developing the operator, choices: ['none', 'quarkus','spring-boot']")
     private String framework;
 
-    @CommandLine.Option(names = {"-o", "--output"}, description = "The framework to be used in developing the operator, choices: ['none', 'quarkus','spring-boot']")
+    @CommandLine.Option(names = {"-o", "--output"}, description = "The output directory, default: the current working directory.")
     private String outDirectory = System.getProperty("user.dir");
 
 
