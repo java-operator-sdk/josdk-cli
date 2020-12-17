@@ -1,3 +1,4 @@
+import io.javaoperatorsdk.cli.commands.InitCommand;
 import picocli.CommandLine;
 
 @CommandLine.Command(subcommands = {InitCommand.class})
