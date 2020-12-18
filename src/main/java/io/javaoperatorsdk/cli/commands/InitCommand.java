@@ -40,14 +40,9 @@ public class InitCommand implements Runnable {
 
     public void run() {
         final var renderer = new TemplateRenderer();
-        // generate build tools files
-        Map<String, String> context = Map.of(
-                "groupid", groupId,
-                "artifactid", artifactId,
-                "name", projectName,
-                "description", description,
-                "sdkversion", sdkVersion
-        );
+
+        Map<String, String> context = generateContext();
+
         System.out.printf(System.getProperty("user.dir"));
         System.out.println("The out directory is " + outDirectory);
         renderer.render("templates" + File.separator + framework + File.separator + buildTool + File.separator + "build", context, outDirectory);
@@ -56,5 +51,15 @@ public class InitCommand implements Runnable {
                 outDirectory + File.separator + ("src.main.java." + groupId).replaceAll("\\.", File.separator));
         System.out.println("Source code files generated successfully");
 
+    }
+
+    private Map<String, String> generateContext() {
+        return Map.of(
+                "groupid", groupId,
+                "artifactid", artifactId,
+                "name", projectName,
+                "description", description,
+                "sdkversion", sdkVersion
+        );
     }
 }

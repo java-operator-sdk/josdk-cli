@@ -18,7 +18,7 @@ public class TemplateRenderer {
         try {
             resources = s.getResources(templatePathPattern);
             for (Resource r : resources) {
-                if (r.isFile() && r.isReadable()) {
+                if (r.isReadable()) {
                     final var relativePath = getRelativePath(templatePath, r);
                     final var template = mustacheCompiler.compile(new InputStreamReader(r.getInputStream()));
                     writeFile(data, relativePath, template, outDirectory);
