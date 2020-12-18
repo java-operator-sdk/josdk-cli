@@ -8,6 +8,6 @@ RUN mvn package
 FROM openjdk:11-slim
 
 WORKDIR /opt
-COPY --from=builder /code/target/*.jar /opt
+COPY --from=builder /code/target/myoperator.jar /opt
 
-CMD ["java", "-jar"]
+CMD ["java", "-jar", "/opt/myoperator.jar"]
