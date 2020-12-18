@@ -23,7 +23,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller(crdName = "webservers.sample.javaoperatorsdk")
+@Controller(crdName = "mycustomresources.{{groupid}}")
 public class SampleController implements ResourceController<MyCustomResource> {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
