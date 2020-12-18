@@ -7,7 +7,7 @@ This CLI tool provides features to make building operators with [javaoperatorsdk
 
 The project is currently under active development, hence you need to build from the code. The native & jar binaries will be provided as soon as the features are stable enough to release the first version.
 
-###How to build
+### How to build
 
 ```
 mvn clean package
