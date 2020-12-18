@@ -12,10 +12,11 @@ import java.util.Map;
         description = "initialize a project by default in the current path")
 public class InitCommand implements Runnable {
 
-    @CommandLine.Option(names = {"-b", "--buildTool"}, description = "The build tool you would like to use, choices: ['maven', 'gradle']")
+    @CommandLine.Option(names = {"-b", "--buildTool"}, defaultValue = "maven", description = "The build tool you would like to use, choices: ['maven', 'gradle']")
     private String buildTool;
 
-    @CommandLine.Option(names = {"-f", "--framework"}, description = "The framework to be used in developing the operator, choices: ['none', 'quarkus','spring-boot']")
+
+    @CommandLine.Option(names = {"-f", "--framework"}, defaultValue = "none", description = "The framework to be used in developing the operator, choices: ['none', 'quarkus','spring-boot']")
     private String framework;
 
     @CommandLine.Option(names = {"-o", "--output"}, description = "The output directory, default: the current working directory.")
@@ -47,6 +48,8 @@ public class InitCommand implements Runnable {
                 "description", description,
                 "sdkversion", sdkVersion
         );
+        System.out.printf(System.getProperty("user.dir"));
+        System.out.println("The out directory is " + outDirectory);
         renderer.render("templates" + File.separator + framework + File.separator + buildTool + File.separator + "build", context, outDirectory);
         System.out.println("Build tool files generated successfully");
         renderer.render("templates" + File.separator + framework + File.separator + buildTool + File.separator + "codes", context,
