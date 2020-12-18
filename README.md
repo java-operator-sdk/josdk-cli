@@ -19,3 +19,16 @@ Running the following command will show what commands are already supported by t
 ```
 java -jar target/jops.jar 
 ```
+
+To find out what options a command supports:
+```
+java -jar target/jops.jar init -h
+```
+
+### Initialize operator example
+
+Running the following command will generate a new *pure java* operator in `./out` that is using *Apache Maven* as build tool.
+
+```
+java -jar target/jops.jar init -b maven -f none -o ./out
+```
