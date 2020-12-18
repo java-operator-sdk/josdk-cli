@@ -13,6 +13,7 @@ mvn exec:java
 
 ```
 docker build -t {{image}} .
+docker push {{image}}
 kubectl apply -f deployment/
 ```
 
