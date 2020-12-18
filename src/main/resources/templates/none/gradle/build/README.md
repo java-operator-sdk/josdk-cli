@@ -6,7 +6,7 @@
 
 run the following command
 ```
-mvn exec:java
+gradle run
 ``` 
 
 ## How to deploy the operator
@@ -18,5 +18,3 @@ kubectl apply -f deployment/
 ```
 
 Your operator will be up and running on K8s cluster you are connected to very soon! 
-
-
