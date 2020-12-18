@@ -1,3 +1,5 @@
+package io.javaoperatorsdk.cli;
+
 import io.javaoperatorsdk.cli.commands.InitCommand;
 import picocli.CommandLine;
 
