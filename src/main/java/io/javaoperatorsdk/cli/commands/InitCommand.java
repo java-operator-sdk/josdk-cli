@@ -15,27 +15,26 @@ public class InitCommand implements Runnable {
     @CommandLine.Option(names = {"-b", "--buildTool"}, defaultValue = "maven", description = "The build tool you would like to use, choices: ['maven', 'gradle']")
     private String buildTool;
 
-
     @CommandLine.Option(names = {"-f", "--framework"}, defaultValue = "none", description = "The framework to be used in developing the operator, choices: ['none', 'quarkus','spring-boot']")
     private String framework;
 
     @CommandLine.Option(names = {"-o", "--output"}, description = "The output directory, default: the current working directory.")
     private String outDirectory = System.getProperty("user.dir");
 
-    @CommandLine.Option(names = {"-g", "--groupid"})
-    private String groupId = "io.javaoperatorsdk.sample";
+    @CommandLine.Option(names = {"-g", "--groupid"}, defaultValue = "io.javaoperatorsdk.sample")
+    private String groupId;
 
-    @CommandLine.Option(names = {"-a", "--artifactid"})
-    private String artifactId = "sample-operator";
+    @CommandLine.Option(names = {"-a", "--artifactid"}, defaultValue = "sample-operator")
+    private String artifactId;
 
-    @CommandLine.Option(names = {"-n", "--name"})
-    private String projectName = "A sample project";
+    @CommandLine.Option(names = {"-n", "--name"}, defaultValue = "A sample project")
+    private String projectName;
 
-    @CommandLine.Option(names = {"-d", "--description"})
-    private String description = "A sample project";
+    @CommandLine.Option(names = {"-d", "--description"}, defaultValue = "A sample project")
+    private String description;
 
-    @CommandLine.Option(names = {"-v", "--sdk-version"})
-    private String sdkVersion = "1.5.0";
+    @CommandLine.Option(names = {"-v", "--sdk-version"}, defaultValue = "1.5.0")
+    private String sdkVersion;
 
 
     public void run() {
