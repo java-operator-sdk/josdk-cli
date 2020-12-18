@@ -24,6 +24,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
+                    <finalName>jops</finalName>
                     <archive>
                         <manifest>
                             <mainClass>io.javaoperatorsdk.cli.Jops</mainClass>
@@ -32,6 +33,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
 
 
