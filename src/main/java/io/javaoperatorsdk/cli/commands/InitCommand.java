@@ -46,7 +46,7 @@ public class InitCommand implements Runnable {
 
         renderer.render("templates" + File.separator + framework + File.separator + buildTool + File.separator + "build", context, outDirectory);
         System.out.println("Build tool files generated successfully");
-        renderer.render("templates" + File.separator + framework + File.separator + buildTool + File.separator + "sources", context,
+        renderer.render("templates" + File.separator + framework + File.separator + "sources", context,
                 outDirectory + File.separator + ("src.main.java." + groupId).replaceAll("\\.", File.separator));
         System.out.println("Source code files generated successfully");
 
