@@ -36,6 +36,9 @@ public class InitCommand implements Runnable {
     @CommandLine.Option(names = {"-v", "--sdk-version"}, defaultValue = "1.5.0")
     private String sdkVersion;
 
+    @CommandLine.Option(names = {"-i", "--image"}, defaultValue = "mycontroller", description = "The image name of the operator.")
+    private String imageName;
+
 
     public void run() {
         final var renderer = new TemplateRenderer();
@@ -46,6 +49,10 @@ public class InitCommand implements Runnable {
         renderer.render("templates" + File.separator + framework + File.separator + buildTool + File.separator + "codes", context,
                 outDirectory + File.separator + ("src.main.java." + groupId).replaceAll("\\.", File.separator));
         System.out.println("Source code files generated successfully");
+
+        renderer.render("templates" + File.separator + framework + File.separator + "deployment", context,
+                outDirectory + File.separator + "deployment");
+        System.out.println("Deployment files generated successfully");
     }
 
     private Map<String, String> generateContext() {
@@ -54,7 +61,8 @@ public class InitCommand implements Runnable {
                 "artifactid", artifactId,
                 "name", projectName,
                 "description", description,
-                "sdkversion", sdkVersion
+                "sdkversion", sdkVersion,
+                "image", imageName
         );
     }
 }
