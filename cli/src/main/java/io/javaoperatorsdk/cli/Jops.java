@@ -6,8 +6,6 @@ import io.quarkus.runtime.annotations.QuarkusMain;
 import javax.inject.Inject;
 import x.y.z.TestResource;
 
-import java.util.HashMap;
-
 @QuarkusMain
 // @CommandLine.Command(
 //        subcommands = {InitCommand.class},
@@ -24,6 +22,7 @@ public class Jops implements QuarkusApplication {
   @Override
   public int run(String... args) throws Exception {
     System.out.println(indexes);
+    System.out.println(indexes.getUrls());
     return 0;
   }
 }

@@ -14,6 +14,11 @@
         <quarkus.version>1.10.5.Final</quarkus.version>
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
+        <quarkus.package.type>native</quarkus.package.type>
+        <quarkus.native.additional-build-args>
+            --initialize-at-run-time=org.springframework.core.io.VfsUtils
+        </quarkus.native.additional-build-args>
+
     </properties>
 
     <build>
@@ -88,11 +93,11 @@
             <version>1.15</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>5.2.9.RELEASE</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework</groupId>-->
+        <!--            <artifactId>spring-core</artifactId>-->
+        <!--            <version>5.2.9.RELEASE</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>io.javaoperatorsdk</groupId>
