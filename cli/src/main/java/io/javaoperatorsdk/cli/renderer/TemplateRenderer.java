@@ -1,27 +1,45 @@
 package io.javaoperatorsdk.cli.renderer;
 
 import com.samskivert.mustache.Mustache;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.util.List;
 import java.util.Map;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import java.util.stream.Collectors;
+import x.y.z.TestResource;
 
 public class TemplateRenderer {
+
   Mustache.Compiler mustacheCompiler = Mustache.compiler();
+  private TestResource testResource;
+
+  public TemplateRenderer(TestResource testResource) {
+    this.testResource = testResource;
+  }
 
   public void render(String templatePath, Map<String, String> data, String outDirectory) {
-    final var templatePathPattern = templatePath + File.separator + "**";
-    PathMatchingResourcePatternResolver s = new PathMatchingResourcePatternResolver();
+    List<URL> urls =
+        testResource.getUrls().stream()
+            .filter(url -> url.getPath().contains(templatePath))
+            .collect(Collectors.toList());
 
-    Resource[] resources;
     try {
-      resources = s.getResources(templatePathPattern);
-      for (Resource r : resources) {
-        if (r.isReadable()) {
-          final var relativePath = getRelativePath(templatePath, r);
-          final var template = mustacheCompiler.compile(new InputStreamReader(r.getInputStream()));
-          writeFile(data, relativePath, template, outDirectory);
+
+      for (URL u : urls) {
+        boolean isDirectory = u.getPath().endsWith("/");
+        System.out.println(String.format("is %s a dir? %s", u.getPath(), isDirectory));
+        if (isDirectory) {
+          continue;
         }
+        final var relativePath = getRelativePath(templatePath, u);
+        System.out.println(relativePath);
+        final var template = mustacheCompiler.compile(new InputStreamReader(u.openStream()));
+        System.out.println(template);
+        writeFile(data, relativePath, template, outDirectory);
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -34,16 +52,18 @@ public class TemplateRenderer {
       com.samskivert.mustache.Template template,
       String outDirectory)
       throws IOException {
+    System.out.println(outDirectory + File.separator + relativePath);
     final var file = new File(outDirectory + File.separator + relativePath);
     file.getParentFile().mkdirs();
     try (final var outputStream = new OutputStreamWriter(new FileOutputStream(file))) {
       template.execute(data, outputStream);
       outputStream.flush();
+      System.out.println("flushed");
     }
   }
 
-  private String getRelativePath(String templatePath, Resource r) throws IOException {
-    final var startIndex = r.getURL().getPath().indexOf(templatePath);
-    return r.getURL().getPath().substring(startIndex + templatePath.length() + 1);
+  private String getRelativePath(String templatePath, URL url) {
+    final var startIndex = url.getPath().indexOf(templatePath);
+    return url.getPath().substring(startIndex + templatePath.length() + 1);
   }
 }
