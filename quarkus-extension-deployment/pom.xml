@@ -8,5 +8,13 @@
     <artifactId>quarkus-extension-deployment</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    
+    <dependencies>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-arc-deployment</artifactId>
+            <version>1.10.5.Final</version>
+        </dependency>
+    </dependencies>
+
+
 </project>
