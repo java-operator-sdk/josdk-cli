@@ -62,6 +62,10 @@ public class InitCommand implements Runnable {
   private String imageName;
 
   public void run() {
+    System.out.println(
+        Thread.currentThread()
+            .getContextClassLoader()
+            .getResourceAsStream("templates/none/deployment/crd.yml"));
     final var renderer = new TemplateRenderer();
     Map<String, String> context = generateContext();
 
