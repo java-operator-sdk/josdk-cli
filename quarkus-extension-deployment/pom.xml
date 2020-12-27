@@ -8,13 +8,78 @@
     <artifactId>quarkus-extension-deployment</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <parent>
+        <groupId>io.javaoperatorsdk</groupId>
+        <artifactId>josdk-cli</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc-deployment</artifactId>
             <version>1.10.5.Final</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.quarkus</groupId>-->
+<!--            <artifactId>quarkus-core-deployment</artifactId>-->
+<!--            <version>1.10.5.Final</version>-->
+<!--        </dependency>-->
+
+        <!-- Tests -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5-internal</artifactId>
+            <version>1.10.5.Final</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+    <build>
+        <plugins>
+<!--            <plugin>-->
+<!--                <groupId>io.quarkus</groupId>-->
+<!--                <artifactId>quarkus-bootstrap-maven-plugin</artifactId>-->
+<!--                &lt;!&ndash; Executions configuration can be inherited from quarkus-build-parent &ndash;&gt;-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>extension-descriptor</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <deployment>${project.groupId}:${project.artifactId}:${project.version}</deployment>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                        <quarkus.log.level>DEBUG</quarkus.log.level>
+                        <maven.home>${maven.home}</maven.home>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-extension-processor</artifactId>
+                            <version>1.10.5.final</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

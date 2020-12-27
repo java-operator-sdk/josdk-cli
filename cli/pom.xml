@@ -9,7 +9,11 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <graalvm.version>20.1.0</graalvm.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <quarkus.version>1.10.5.Final</quarkus.version>
+        <compiler-plugin.version>3.8.1</compiler-plugin.version>
+        <maven.compiler.parameters>true</maven.compiler.parameters>
     </properties>
 
     <build>
@@ -21,32 +25,6 @@
                     <source>11</source>
                     <target>11</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <finalName>jops</finalName>
-                    <archive>
-                        <manifest>
-                            <mainClass>io.javaoperatorsdk.cli.Jops</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <appendAssemblyId>false</appendAssemblyId>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>com.coveo</groupId>
@@ -64,33 +42,32 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
-                <groupId>org.graalvm.nativeimage</groupId>
-                <artifactId>native-image-maven-plugin</artifactId>
-                <version>${graalvm.version}</version>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <version>${quarkus.version}</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>native-image</goal>
+                            <goal>build</goal>
                         </goals>
-                        <phase>package</phase>
                     </execution>
                 </executions>
-                <configuration>
-                    <skip>false</skip>
-                    <imageName>jops</imageName>
-                    <buildArgs>
-                        --no-fallback
-                        --allow-incomplete-classpath
-                        -H:IncludeResources="templates/none/maven/build/.*"
-                        -H:IncludeResources="templates/none/sources/.*"
-                        -H:IncludeResources="templates/none/deployment/.*"
-                    </buildArgs>
-                </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-universe-bom</artifactId>
+                <version>${quarkus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -118,10 +95,19 @@
         </dependency>
 
         <dependency>
-            <groupId>org.graalvm.sdk</groupId>
-            <artifactId>graal-sdk</artifactId>
-            <version>${graalvm.version}</version>
-            <scope>provided</scope>
+            <groupId>io.javaoperatorsdk</groupId>
+            <artifactId>quarkus-extension-deployment</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus.arc</groupId>
+            <artifactId>arc</artifactId>
         </dependency>
     </dependencies>
+
 </project>
