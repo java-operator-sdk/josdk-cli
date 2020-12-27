@@ -3,8 +3,10 @@ package io.javaoperatorsdk.cli.commands;
 import io.javaoperatorsdk.cli.renderer.TemplateRenderer;
 import java.io.File;
 import java.util.Map;
+import javax.inject.Inject;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
+import x.y.z.TestResource;
 
 @Command(
     name = "init",
@@ -61,12 +63,15 @@ public class InitCommand implements Runnable {
       description = "The image name of the operator.")
   private String imageName;
 
+  @Inject private TestResource indexes;
+
   public void run() {
+    System.out.println(indexes.getUrls());
     System.out.println(
         Thread.currentThread()
             .getContextClassLoader()
             .getResourceAsStream("templates/none/deployment/crd.yml"));
-    final var renderer = new TemplateRenderer();
+    final var renderer = new TemplateRenderer(indexes);
     Map<String, String> context = generateContext();
 
     renderer.render(
