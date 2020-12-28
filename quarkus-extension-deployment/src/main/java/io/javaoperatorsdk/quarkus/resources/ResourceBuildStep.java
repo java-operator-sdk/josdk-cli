@@ -23,7 +23,6 @@ public class ResourceBuildStep {
   @Record(ExecutionTime.STATIC_INIT)
   public SyntheticBeanBuildItem buildItem(TestResourceRecorder testResourceRecorder) {
     LOGGER.info("in buildItem");
-    System.out.println("building...........");
     SyntheticBeanBuildItem buildItem =
         SyntheticBeanBuildItem.configure(ResourceURLLocator.class)
             .scope(Singleton.class)

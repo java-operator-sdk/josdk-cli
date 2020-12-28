@@ -1,12 +1,12 @@
 package io.javaoperatorsdk.cli.commands;
 
 import io.javaoperatorsdk.cli.renderer.TemplateRenderer;
+import io.javaoperatorsdk.quarkus.resources.ResourceURLLocator;
 import java.io.File;
 import java.util.Map;
 import javax.inject.Inject;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
-import io.javaoperatorsdk.quarkus.resources.ResourceURLLocator;
 
 @Command(
     name = "init",
@@ -79,20 +79,17 @@ public class InitCommand implements Runnable {
             + "build",
         context,
         outDirectory);
-    System.out.println("Build tool files generated successfully");
     renderer.render(
         "templates" + File.separator + framework + File.separator + "sources",
         context,
         outDirectory
             + File.separator
             + ("src.main.java." + groupId).replaceAll("\\.", File.separator));
-    System.out.println("Source code files generated successfully");
 
     renderer.render(
         "templates" + File.separator + framework + File.separator + "deployment",
         context,
         outDirectory + File.separator + "deployment");
-    System.out.println("Deployment files generated successfully");
   }
 
   private Map<String, String> generateContext() {

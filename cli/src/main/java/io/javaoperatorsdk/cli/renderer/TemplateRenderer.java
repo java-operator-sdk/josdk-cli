@@ -1,6 +1,7 @@
 package io.javaoperatorsdk.cli.renderer;
 
 import com.samskivert.mustache.Mustache;
+import io.javaoperatorsdk.quarkus.resources.ResourceURLLocator;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
-import io.javaoperatorsdk.quarkus.resources.ResourceURLLocator;
 
 public class TemplateRenderer {
 
@@ -25,14 +25,11 @@ public class TemplateRenderer {
     try {
       for (URL u : urls) {
         boolean isDirectory = u.getPath().endsWith(File.separator);
-        System.out.println(String.format("is %s a dir? %s", u.getPath(), isDirectory));
         if (isDirectory) {
           continue;
         }
         final var relativePath = getRelativePath(templatePath, u);
-        System.out.println(relativePath);
         final var template = mustacheCompiler.compile(new InputStreamReader(u.openStream()));
-        System.out.println(template);
         writeFile(data, relativePath, template, outDirectory);
       }
     } catch (IOException e) {
@@ -46,7 +43,6 @@ public class TemplateRenderer {
       com.samskivert.mustache.Template template,
       String outDirectory)
       throws IOException {
-    System.out.println(outDirectory + File.separator + relativePath);
     final var file = new File(outDirectory + File.separator + relativePath);
     file.getParentFile().mkdirs();
     try (final var outputStream = new OutputStreamWriter(new FileOutputStream(file))) {
