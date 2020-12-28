@@ -18,10 +18,6 @@ public class ResourceURLLocator {
     this.urls = urls;
   }
 
-  public List<URL> getUrls() {
-    return urls;
-  }
-
   public List<URL> contains(String path) {
     return this.urls.stream()
         .filter(url -> url.getPath().contains(path))
