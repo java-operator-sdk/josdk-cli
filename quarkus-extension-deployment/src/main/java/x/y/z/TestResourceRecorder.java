@@ -9,13 +9,14 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Recorder
 public class TestResourceRecorder {
   private List<URL> resourcePaths = new ArrayList<>();
 
   public TestResourceRecorder() {
-    X s = new X();
+    PathMatchingResourcePatternResolver s = new PathMatchingResourcePatternResolver();
     try {
       Resource[] resources = s.getResources("templates/**");
       resourcePaths =
@@ -36,11 +37,6 @@ public class TestResourceRecorder {
   }
 
   public Supplier<TestResource> getSupplier() {
-    return new Supplier<TestResource>() {
-      @Override
-      public TestResource get() {
-        return new TestResource(resourcePaths);
-      }
-    };
+    return () -> new TestResource(resourcePaths);
   }
 }
