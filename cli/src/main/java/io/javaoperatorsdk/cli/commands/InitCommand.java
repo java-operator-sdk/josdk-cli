@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
-import x.y.z.TestResource;
+import x.y.z.ResourceURLLocator;
 
 @Command(
     name = "init",
@@ -63,7 +63,7 @@ public class InitCommand implements Runnable {
       description = "The image name of the operator.")
   private String imageName;
 
-  @Inject private TestResource indexes;
+  @Inject private ResourceURLLocator indexes;
 
   public void run() {
     System.out.println(indexes.getUrls());

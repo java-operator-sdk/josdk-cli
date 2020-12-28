@@ -10,20 +10,20 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import x.y.z.TestResource;
+import x.y.z.ResourceURLLocator;
 
 public class TemplateRenderer {
 
   Mustache.Compiler mustacheCompiler = Mustache.compiler();
-  private TestResource testResource;
+  private ResourceURLLocator resourceURLLocator;
 
-  public TemplateRenderer(TestResource testResource) {
-    this.testResource = testResource;
+  public TemplateRenderer(ResourceURLLocator resourceURLLocator) {
+    this.resourceURLLocator = resourceURLLocator;
   }
 
   public void render(String templatePath, Map<String, String> data, String outDirectory) {
     List<URL> urls =
-        testResource.getUrls().stream()
+        resourceURLLocator.getUrls().stream()
             .filter(url -> url.getPath().contains(templatePath))
             .collect(Collectors.toList());
 

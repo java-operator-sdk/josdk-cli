@@ -36,7 +36,7 @@ public class TestResourceRecorder {
     }
   }
 
-  public Supplier<TestResource> getSupplier() {
-    return () -> new TestResource(resourcePaths);
+  public Supplier<ResourceURLLocator> getSupplier() {
+    return () -> new ResourceURLLocator(resourcePaths);
   }
 }

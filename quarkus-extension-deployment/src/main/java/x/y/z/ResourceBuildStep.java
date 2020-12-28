@@ -25,9 +25,9 @@ public class ResourceBuildStep {
     LOGGER.info("in buildItem");
     System.out.println("building...........");
     SyntheticBeanBuildItem buildItem =
-        SyntheticBeanBuildItem.configure(TestResource.class)
+        SyntheticBeanBuildItem.configure(ResourceURLLocator.class)
             .scope(Singleton.class)
-            .addType(TestResource.class)
+            .addType(ResourceURLLocator.class)
             .supplier(testResourceRecorder.getSupplier())
             .defaultBean()
             .done();

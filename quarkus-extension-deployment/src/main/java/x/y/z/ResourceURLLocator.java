@@ -4,14 +4,14 @@ import io.quarkus.runtime.annotations.RecordableConstructor;
 import java.net.URL;
 import java.util.List;
 
-public class TestResource {
+public class ResourceURLLocator {
   private List<URL> urls;
 
   @RecordableConstructor
-  public TestResource() {}
+  public ResourceURLLocator() {}
 
   @RecordableConstructor
-  public TestResource(List<URL> urls) {
+  public ResourceURLLocator(List<URL> urls) {
     this.urls = urls;
   }
 
