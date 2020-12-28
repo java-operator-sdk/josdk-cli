@@ -9,7 +9,6 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import x.y.z.ResourceURLLocator;
 
 public class TemplateRenderer {
@@ -22,15 +21,10 @@ public class TemplateRenderer {
   }
 
   public void render(String templatePath, Map<String, String> data, String outDirectory) {
-    List<URL> urls =
-        resourceURLLocator.getUrls().stream()
-            .filter(url -> url.getPath().contains(templatePath))
-            .collect(Collectors.toList());
-
+    List<URL> urls = resourceURLLocator.contains(templatePath);
     try {
-
       for (URL u : urls) {
-        boolean isDirectory = u.getPath().endsWith("/");
+        boolean isDirectory = u.getPath().endsWith(File.separator);
         System.out.println(String.format("is %s a dir? %s", u.getPath(), isDirectory));
         if (isDirectory) {
           continue;
@@ -58,7 +52,6 @@ public class TemplateRenderer {
     try (final var outputStream = new OutputStreamWriter(new FileOutputStream(file))) {
       template.execute(data, outputStream);
       outputStream.flush();
-      System.out.println("flushed");
     }
   }
 
