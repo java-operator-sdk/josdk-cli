@@ -66,11 +66,6 @@ public class InitCommand implements Runnable {
   @Inject private ResourceURLLocator indexes;
 
   public void run() {
-    System.out.println(indexes.getUrls());
-    System.out.println(
-        Thread.currentThread()
-            .getContextClassLoader()
-            .getResourceAsStream("templates/none/deployment/crd.yml"));
     final var renderer = new TemplateRenderer(indexes);
     Map<String, String> context = generateContext();
 

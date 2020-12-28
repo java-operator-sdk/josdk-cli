@@ -10,8 +10,7 @@ public class ResourceURLLocator {
   private List<URL> urls;
 
   @RecordableConstructor
-  public ResourceURLLocator() {
-  }
+  public ResourceURLLocator() {}
 
   @RecordableConstructor
   public ResourceURLLocator(List<URL> urls) {
