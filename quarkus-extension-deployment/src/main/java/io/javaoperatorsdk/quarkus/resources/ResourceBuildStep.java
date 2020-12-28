@@ -1,4 +1,4 @@
-package x.y.z;
+package io.javaoperatorsdk.quarkus.resources;
 
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;

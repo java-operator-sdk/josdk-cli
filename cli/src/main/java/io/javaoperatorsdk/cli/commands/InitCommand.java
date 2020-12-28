@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
-import x.y.z.ResourceURLLocator;
+import io.javaoperatorsdk.quarkus.resources.ResourceURLLocator;
 
 @Command(
     name = "init",

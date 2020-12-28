@@ -1,4 +1,4 @@
-package x.y.z;
+package io.javaoperatorsdk.quarkus.resources;
 
 import io.quarkus.runtime.annotations.Recorder;
 import java.io.IOException;

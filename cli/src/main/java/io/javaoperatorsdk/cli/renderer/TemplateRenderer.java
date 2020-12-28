@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
-import x.y.z.ResourceURLLocator;
+import io.javaoperatorsdk.quarkus.resources.ResourceURLLocator;
 
 public class TemplateRenderer {
 
