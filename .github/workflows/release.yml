@@ -41,3 +41,20 @@ jobs:
           name: artifacts
           path: ./jops-macos
 
+  release-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ayltai/setup-graalvm@v1
+        with:
+          java-version: 11
+          graalvm-version: 20.3.0
+          native-image: true
+      - run: |
+          mvn install
+          copy cli\target\jops-runner .\jops-windows.exe
+      - name: Upload macos binary
+        uses: actions/upload-artifact@v1
+        with:
+          name: artifacts
+          path: .\jops-windows.exe
