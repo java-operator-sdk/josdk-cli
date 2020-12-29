@@ -16,3 +16,4 @@ jobs:
       - run: java -version
       - run: |
           mvn install
+
