@@ -16,6 +16,12 @@ jobs:
           native-image: true
       - run: java -version
       - run: |
-          ls
           mvn install
+          cp cli/target/jops-runner ./jops-linux
+      - name: Upload linux binary
+        uses: actions/upload-artifact@v1
+        with:
+          name: artifacts
+          path: ./jops-linux
+
 
