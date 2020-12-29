@@ -56,7 +56,7 @@ jobs:
       - run: |
           mvn install -B
           dir cli\target
-          copy cli\target\jops-runner .\jops-windows.exe
+          copy cli\target\jops-runner.exe .\jops-windows.exe
       - name: Upload macos binary
         uses: actions/upload-artifact@v1
         with:
