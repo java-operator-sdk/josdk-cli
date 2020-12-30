@@ -22,7 +22,7 @@
     <maven.compiler.parameters>true</maven.compiler.parameters>
     <quarkus.package.type>native</quarkus.package.type>
     <quarkus.native.additional-build-args>
-      --initialize-at-run-time=org.springframework.core.io.VfsUtils,-H:IncludeResources=.*
+      --initialize-at-run-time=org.springframework.core.io.VfsUtils,-H:IncludeResources=templates/.*
     </quarkus.native.additional-build-args>
   </properties>
 
