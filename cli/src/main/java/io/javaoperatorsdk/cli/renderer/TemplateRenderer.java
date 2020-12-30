@@ -1,35 +1,40 @@
 package io.javaoperatorsdk.cli.renderer;
 
 import com.samskivert.mustache.Mustache;
-import io.javaoperatorsdk.quarkus.resources.ResourceURLLocator;
+import io.javaoperatorsdk.quarkus.resources.ResourceLocator;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
 public class TemplateRenderer {
 
   Mustache.Compiler mustacheCompiler = Mustache.compiler();
-  private ResourceURLLocator resourceURLLocator;
+  private ResourceLocator resourceLocator;
 
-  public TemplateRenderer(ResourceURLLocator resourceURLLocator) {
-    this.resourceURLLocator = resourceURLLocator;
+  public TemplateRenderer(ResourceLocator resourceLocator) {
+    this.resourceLocator = resourceLocator;
   }
 
   public void render(String templatePath, Map<String, String> data, String outDirectory) {
-    List<URL> urls = resourceURLLocator.contains(templatePath);
+    List<String> paths = resourceLocator.contains(templatePath);
     try {
-      for (URL u : urls) {
-        boolean isDirectory = u.getPath().endsWith(File.separator);
+      for (String path : paths) {
+        boolean isDirectory = path.endsWith(File.separator);
         if (isDirectory) {
           continue;
         }
-        final var relativePath = getRelativePath(templatePath, u);
-        final var template = mustacheCompiler.compile(new InputStreamReader(u.openStream()));
+        final var relativePath = getRelativePath(templatePath, path);
+        if (path.startsWith("/")) {
+          path = path.substring(1);
+        }
+        final var template =
+            mustacheCompiler.compile(
+                new InputStreamReader(
+                    Thread.currentThread().getContextClassLoader().getResourceAsStream(path)));
         writeFile(data, relativePath, template, outDirectory);
       }
     } catch (IOException e) {
@@ -51,8 +56,8 @@ public class TemplateRenderer {
     }
   }
 
-  private String getRelativePath(String templatePath, URL url) {
-    final var startIndex = url.getPath().indexOf(templatePath);
-    return url.getPath().substring(startIndex + templatePath.length() + 1);
+  private String getRelativePath(String templatePath, String path) {
+    final var startIndex = path.indexOf(templatePath);
+    return path.substring(startIndex + templatePath.length() + 1);
   }
 }

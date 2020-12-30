@@ -2,7 +2,6 @@ package io.javaoperatorsdk.quarkus.resources;
 
 import io.quarkus.runtime.annotations.Recorder;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +12,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Recorder
 public class TestResourceRecorder {
-  private List<URL> resourcePaths = new ArrayList<>();
+
+  private List<String> resourcePaths = new ArrayList<>();
 
   public TestResourceRecorder() {
     PathMatchingResourcePatternResolver s = new PathMatchingResourcePatternResolver();
@@ -24,7 +24,8 @@ public class TestResourceRecorder {
               .map(
                   r -> {
                     try {
-                      return r.getURL();
+                      final var splitted = r.getURL().getPath().split("!");
+                      return splitted[splitted.length - 1];
                     } catch (IOException e) {
                       e.printStackTrace();
                       return null;
@@ -36,7 +37,7 @@ public class TestResourceRecorder {
     }
   }
 
-  public Supplier<ResourceURLLocator> getSupplier() {
-    return () -> new ResourceURLLocator(resourcePaths);
+  public Supplier<ResourceLocator> getSupplier() {
+    return () -> new ResourceLocator(resourcePaths);
   }
 }

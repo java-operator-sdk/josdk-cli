@@ -1,7 +1,7 @@
 package io.javaoperatorsdk.cli.commands;
 
 import io.javaoperatorsdk.cli.renderer.TemplateRenderer;
-import io.javaoperatorsdk.quarkus.resources.ResourceURLLocator;
+import io.javaoperatorsdk.quarkus.resources.ResourceLocator;
 import java.io.File;
 import java.util.Map;
 import javax.inject.Inject;
@@ -63,7 +63,7 @@ public class InitCommand implements Runnable {
       description = "The image name of the operator.")
   private String imageName;
 
-  @Inject private ResourceURLLocator indexes;
+  @Inject private ResourceLocator indexes;
 
   public void run() {
     final var renderer = new TemplateRenderer(indexes);
