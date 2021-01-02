@@ -20,11 +20,28 @@
     <quarkus.version>1.10.5.Final</quarkus.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <maven.compiler.parameters>true</maven.compiler.parameters>
-    <quarkus.package.type>native</quarkus.package.type>
-    <quarkus.native.additional-build-args>
-      --initialize-at-run-time=org.springframework.core.io.VfsUtils,-H:IncludeResources=templates/.*
-    </quarkus.native.additional-build-args>
   </properties>
+
+  <profiles>
+    <profile>
+      <id>jar</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <quarkus.package.uber-jar>true</quarkus.package.uber-jar>
+      </properties>
+    </profile>
+    <profile>
+      <id>native</id>
+      <properties>
+        <quarkus.package.type>native</quarkus.package.type>
+        <quarkus.native.additional-build-args>
+          --initialize-at-run-time=org.springframework.core.io.VfsUtils,-H:IncludeResources=templates/.*
+        </quarkus.native.additional-build-args>
+      </properties>
+    </profile>
+  </profiles>
 
   <build>
     <plugins>
