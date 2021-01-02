@@ -16,12 +16,20 @@ jobs:
           native-image: true
       - run: |
           mvn install -B
+          mvn install -B -Pnative
           cp cli/target/jops-runner ./jops-linux
+          cp cli/target/jops-runner.jar ./jops.jar
       - name: Upload linux binary
         uses: actions/upload-artifact@v1
         with:
           name: artifacts
           path: ./jops-linux
+     - name: Upload jar file
+       uses: actions/upload-artifact@v1
+       with:
+         name: artifacts
+         path: ./jops.jar
+
 
   release-macos:
     runs-on: macos-latest
