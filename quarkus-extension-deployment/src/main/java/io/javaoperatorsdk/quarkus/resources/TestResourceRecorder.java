@@ -20,18 +20,13 @@ public class TestResourceRecorder {
     resourcePaths.addAll(resources);
   }
 
-  private List<String> getResourceFiles(String path) {
+  private List<String> getResourceFiles(String pathPrefix) {
     Reflections reflections = new Reflections(null, new ResourcesScanner());
 
-    return reflections.getStore().get(Utils.index(ResourcesScanner.class))
-        .values()
-        .stream()
+    return reflections.getStore().get(Utils.index(ResourcesScanner.class)).values().stream()
         .flatMap(Set::stream)
-        .filter(
-            p -> {
-              System.out.println(p);
-              return p.contains(path);
-            }).collect(Collectors.toList());
+        .filter(p -> p.startsWith(pathPrefix))
+        .collect(Collectors.toList());
   }
 
   public Supplier<ResourceLocator> getSupplier() {
