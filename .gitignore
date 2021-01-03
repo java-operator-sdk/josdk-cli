@@ -18,4 +18,4 @@ hs_err_pid*
 
 out/*
 
-target/*
+*/target/*
