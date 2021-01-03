@@ -24,11 +24,11 @@ jobs:
         with:
           name: artifacts
           path: ./jops-linux
-     - name: Upload jar file
-       uses: actions/upload-artifact@v1
-       with:
-         name: artifacts
-         path: ./jops.jar
+      - name: Upload jar file
+        uses: actions/upload-artifact@v1
+        with:
+          name: artifacts
+          path: ./jops.jar
 
 
   release-macos:
