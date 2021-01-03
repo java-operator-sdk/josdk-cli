@@ -54,7 +54,7 @@ public class InitCommand implements Runnable {
 
   @CommandLine.Option(
       names = {"-v", "--sdk-version"},
-      defaultValue = "1.5.0")
+      defaultValue = "1.6.2-SNAPSHOT")
   private String sdkVersion;
 
   @CommandLine.Option(
