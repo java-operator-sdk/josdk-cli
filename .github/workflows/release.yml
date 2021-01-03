@@ -41,7 +41,7 @@ jobs:
           graalvm-version: 20.3.0
           native-image: true
       - run: |
-          mvn install -B
+          mvn install -B -Pnative
           cp cli/target/jops-runner ./jops-macos
       - name: Upload macos binary
         uses: actions/upload-artifact@v1
@@ -62,8 +62,7 @@ jobs:
           graalvm-version: 20.3.0
           native-image: true
       - run: |
-          mvn install -B
-          dir cli\target
+          mvn install -B -Pnative
           copy cli\target\jops-runner.exe .\jops-windows.exe
       - name: Upload macos binary
         uses: actions/upload-artifact@v1
