@@ -17,6 +17,8 @@ public class TestResourceRecorder {
 
   public TestResourceRecorder() {
     List<String> resources = getResourceFiles("templates");
+    System.out.println("resource files ...");
+    System.out.println(resources);
     resourcePaths.addAll(resources);
   }
 
@@ -25,7 +27,11 @@ public class TestResourceRecorder {
 
     return reflections.getStore().get(Utils.index(ResourcesScanner.class)).values().stream()
         .flatMap(Set::stream)
-        .filter(p -> p.startsWith(pathPrefix))
+        .filter(
+            p -> {
+              System.out.println(p);
+              return p.startsWith(pathPrefix);
+            })
         .collect(Collectors.toList());
   }
 
